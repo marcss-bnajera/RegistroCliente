@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 
-@Entity(name = "Cliente")
+@Entity(name = "Clientes")
 //lombook
 @Data//generar los setters y getters
 @NoArgsConstructor//el constructor vacio
