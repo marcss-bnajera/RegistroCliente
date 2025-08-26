@@ -31,6 +31,7 @@
 		<!-- version de joinfaces "jsf" -->
 		<joinfaces.version>5.4.3</joinfaces.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.joinfaces</groupId>
@@ -45,7 +46,7 @@
 
 		<!-- flatlaf-->
 		<dependency>
-			<groupId>org.formdev</groupId>
+			<groupId>com.formdev</groupId>
 			<artifactId>flatlaf</artifactId>
 			<version>3.0</version>
 		</dependency>
