@@ -3,76 +3,75 @@
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Registro Cliente</title>
+        <title>Registro de Clientes</title>
         <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
         <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/primeone-dark.css"/>
     </h:head>
     <h:body>
-        <p>hola mundo desde sp, con jsf</p>
-
         <div class="card">
             <h:form id="formulario-clientes">
                 <p:growl id="mensaje-emergente" showDetails="true"/>
-                <!-- Barra del Menu -->
                 <div class="card">
                     <p:menubar>
-                        <!-- Boton para actualizar -->
                         <p:menuitem value="Inicio" icon="pi pi-fw pi-user"
-                                    update=":formulario-clientes:table-clientes"
+                                    update=":formulario-clientes:tabla-clientes"
                                     actionListener="#{indexController.cargarDatos}"/>
-                        <!-- Boton para agregar nuevo CLiente -->
                         <p:menuitem value="Nuevo Cliente" icon="pi pi-fw pi-plus"
                                     actionListener="#{indexController.agregarCliente}"
                                     update=":formulario-modal:ventana-cliente"
-                                    oncomplete="PF('ventanaModalCliente').show()"/>
+                                    oncomplete="PF('ventanaModalCliente').show();"/>
                     </p:menubar>
 
                     <div class="card">
-                        <p:dataTable value="#{indexController.clientes}" var="cliente" id="table-clientes" widgetVar="clienteTabla">
+                        <p:dataTable value="#{indexController.clientes}" var="cliente" id="tabla-clientes" widgetVar="clienteTabla">
                             <f:facet name="header">
                                 <div class="flex justify-content-center flex-wrap card-container yellow-container">
                                     <div class="flex align-items-center justify-content-center w-20rem h4rem bg-yellow-500 font-bold m-2
                                 text-gray-900 border-round">
-                                        <h3>Registro de Clientes - KinsCript</h3>
+                                        <h3>Registro de Clientes - KinScript</h3>
                                     </div>
                                 </div>
                             </f:facet>
-
-                            <p:column headerText="Código">
-                                <h:outputText value="#{cliente.codigoCliente}" />
+                            <p:column headerText="ID">
+                                <h:outputText value="#{cliente.codigoCliente}"/>
                             </p:column>
                             <p:column headerText="Nombre">
-                                <h:outputText value="#{cliente.nombre}" />
+                                <h:outputText value="#{cliente.nombre}"/>
                             </p:column>
                             <p:column headerText="Apellido">
-                                <h:outputText value="#{cliente.apellido}" />
+                                <h:outputText value="#{cliente.apellido}"/>
                             </p:column>
-                            <p:column headerText="Teléfono">
-                                <h:outputText value="#{cliente.telefono}" />
+                            <p:column headerText="Numero de Telefono">
+                                <h:outputText value="#{cliente.telefono}"/>
                             </p:column>
-                            <p:column headerText="Correo">
-                                <h:outputText value="#{cliente.correo}" />
+                            <p:column headerText="Email">
+                                <h:outputText value="#{cliente.correo}"/>
                             </p:column>
-                            <p:column headerText="Género">
-                                <h:outputText value="#{cliente.genero}" />
+                            <p:column headerText="Genero">
+                                <h:outputText value="#{cliente.genero}"/>
                             </p:column>
                             <p:column headerText="Edad">
-                                <h:outputText value="#{cliente.edad}" />
+                                <h:outputText value="#{cliente.edad}"/>
                             </p:column>
+
                             <p:column>
                                 <p:commandButton value="Editar" icon="pi pi-pencil"
-                                                    update="formulario-modal:ventana-cliente"
-                                                    process="@this"
-                                                    oncomplete="PF('ventanaModalCliente').show()"
-                                                    class="ui-button-primary"
-                                                    style="margin-right:.5rem">
-                                <f:setPropertyActionListener
-                                                value="#{cliente}"
-                                                target="#{indexController.clienteSeleccionado}"/>
-
-                                <p:commandButton target="formulario-modal:ventana-cliente"/>
-                                <p:commandButton value="Eliminar" icon="pi pi-trash" class="ui button-danger">
-
+                                                 update=":formulario-modal:ventana-cliente"
+                                                 process="@this"
+                                                 oncomplete="PF('ventanaModalCliente').show();"
+                                                 class="ui-button-primary"
+                                                 style="margin-right:.5rem">
+                                    <f:setPropertyActionListener
+                                            value="#{cliente}"
+                                            target="#{indexController.clienteSeleccionado}"/>
+                                </p:commandButton>
+                                <p:commandButton value="Eliminar" icon="pi pi-trash" class="ui-button-danger"
+                                                 action="#{indexController.eliminarCliente}"
+                                                 update=":formulario-clientes:tabla-clientes, :formulario-clientes:mensaje-emergente"
+                                                 style="margin-left:.5rem">
+                                    <f:setPropertyActionListener
+                                            value="#{cliente}"
+                                            target="#{indexController.clienteSeleccionado}"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
@@ -83,35 +82,35 @@
                 <p:dialog header="Detalle Clientes" showEffect="fade" modal="true" widgetVar="ventanaModalCliente" responsive="true">
                     <p:outputPanel id="ventana-cliente" class="ui-fluid">
                         <div class="field">
-                            <p:outputLabel for="nombre">Nombre</p:outputLabel>
-                            <p:inputText id="nombre" value="#{indexController.clienteSeleccionado.nombre}"
-                                         required="true"/>
+                            <p:outputPanel for="nombre">Nombre</p:outputPanel>
+                            <p:inputText id="nombre" value="#{indexController.clienteSeleccionado.nombre}" required="true"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="telefono">Telefono</p:outputLabel>
-                            <p:inputText id="telefono" value="#{indexController.clienteSeleccionado.telefono}"
-                                         required="true"/>
+                            <p:outputPanel for="apellido">Apellido</p:outputPanel>
+                            <p:inputText id="apellido" value="#{indexController.clienteSeleccionado.apellido}" required="true"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="correo">Correo</p:outputLabel>
-                            <p:inputText id="correo" value="#{indexController.clienteSeleccionado.correo}"
-                                         required="true"/>
+                            <p:outputPanel for="telefono">Numero de Telefono</p:outputPanel>
+                            <p:inputText id="telefono" value="#{indexController.clienteSeleccionado.telefono}" required="true"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="genero">Genero</p:outputLabel>
-                            <p:inputText id="genero" value="#{indexController.clienteSeleccionado.genero}"
-                                         required="true"/>
+                            <p:outputPanel for="correo">Email</p:outputPanel>
+                            <p:inputText id="correo" value="#{indexController.clienteSeleccionado.correo}" required="true"/>
                         </div>
                         <div class="field">
-                            <p:outputLabel for="edad">Edad</p:outputLabel>
-                            <p:inputText id="edad" value="#{indexController.clienteSeleccionado.edad}"
-                                         required="true"/>
+                            <p:outputPanel for="genero">Genero</p:outputPanel>
+                            <p:inputText id="genero" value="#{indexController.clienteSeleccionado.genero}" required="true"/>
+                        </div>
+                        <div class="field">
+                            <p:outputPanel for="edad">Edad</p:outputPanel>
+                            <p:inputText id="edad" value="#{indexController.clienteSeleccionado.edad}" required="true"/>
                         </div>
                     </p:outputPanel>
                     <f:facet name="footer">
-                        <p:commandButton value="Guardar" icon="pi pi-check"
-                                            process="ventana-cliente @this"
-                                            actionListener="#{indexController.guardarCliente"/>
+                        <p:commandButton value="Guardar"
+                                         icon="pi pi-check"
+                                         process="ventana-cliente @this"
+                                         actionListener="#{indexController.guardaCliente}"/>
                     </f:facet>
                 </p:dialog>
             </h:form>
